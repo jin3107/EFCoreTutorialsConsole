@@ -48,9 +48,7 @@ namespace EFCoreTutorialsConsole
 
         static void ReadProducts()
         {
-            Console.OutputEncoding = Encoding.UTF8;
             using var dbContext = new ProductDbContext();
-
             var products = dbContext.Products.ToList();
             products.ForEach(product => product.PrintInfo());
 
@@ -61,14 +59,47 @@ namespace EFCoreTutorialsConsole
             //    product.PrintInfo();
         }
 
+        static void RenameProduct(int id, string newName, string newProvider)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            using var dbContext = new ProductDbContext();
+            Product product = (from p in dbContext.Products
+                               where p.ProductId == id
+                               select p).FirstOrDefault()!;
+            if (product != null)
+            {
+                product.ProductName = newName;
+                product.Provider = newProvider;
+                int number_rows = dbContext.SaveChanges();
+                Console.WriteLine($"Đã cập nhật {number_rows} dữ liệu!");
+            }
+        }
+
+        static void DeleteProduct(int id)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            using var dbContext = new ProductDbContext();
+            Product product = (from p in dbContext.Products
+                               where p.ProductId == id
+                               select p).FirstOrDefault()!;
+            if (product != null)
+            {
+                dbContext.Remove(product);
+                int number_rows = dbContext.SaveChanges();
+                Console.WriteLine($"Đã xóa {number_rows} dữ liệu!");
+            }
+        }
+
         static void Main(string[] args)
         {
             //CreateDatabase();
             //DropDatabase();
 
-            // Insert, Select, Update, Delete
+            //Insert, Select, Update, Delete
             //InsertProduct();
-            ReadProducts();
+            //ReadProducts();
+            //RenameProduct(4, "Sản phẩm 4", "CTY B");
+            //DeleteProduct(5);
         }
     }
 }
