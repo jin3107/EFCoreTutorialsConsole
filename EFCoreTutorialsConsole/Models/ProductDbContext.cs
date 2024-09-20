@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreTutorialsConsole.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace EFCoreTutorialsConsole.Models
 {
     public class ProductDbContext : DbContext
     {
+        public DbSet<Product> Products { get; set; }
+
         private const string connectionString = "Data Source=Rainy;Initial Catalog=EFCoreTutorialsConsole;Integrated Security=True;Trust Server Certificate=True";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
