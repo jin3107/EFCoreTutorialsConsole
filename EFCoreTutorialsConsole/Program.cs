@@ -48,6 +48,7 @@ namespace EFCoreTutorialsConsole
 
         static void ReadProducts()
         {
+            Console.OutputEncoding = Encoding.UTF8;
             using var dbContext = new ProductDbContext();
             var products = dbContext.Products.ToList();
             products.ForEach(product => product.PrintInfo());
@@ -100,6 +101,10 @@ namespace EFCoreTutorialsConsole
             //ReadProducts();
             //RenameProduct(4, "Sản phẩm 4", "CTY B");
             //DeleteProduct(5);
+
+            //Logging
+            //RenameProduct(4, "Oppo Reno 12T", "Oppo");
+            ReadProducts();
         }
     }
 }
