@@ -16,12 +16,15 @@ namespace EFCoreTutorialsConsole.Entities
 
         [Required]
         [MaxLength(100)]
+        [Column("Product Name", TypeName = "ntext")]
         public string? ProductName { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string? Provider { get; set; }
+        [Column(TypeName = "money")]
+        public decimal Price { get; set; }
 
-        public void PrintInfo() => Console.WriteLine($"{ProductId} - {ProductName} - {Provider}");
+        // ForeignKey
+        public Category? Category { get; set; } // FK -> PK 
+
+        public void PrintInfo() => Console.WriteLine($"{ProductId} - {ProductName} - {Price}");
     }
 }
